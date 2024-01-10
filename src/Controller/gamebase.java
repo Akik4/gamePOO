@@ -16,7 +16,7 @@ public class gamebase {
     public static ArrayList<Ennemy> ennemies = new ArrayList<Ennemy>();
 
     static map laMap = new map(22, 22);
-    public static Player e = new Player("test", 100, 1, "p",null, 0);
+    public static Player e = new Player("test", 100, 1, "p",null);
 
     public static void init()
     {
@@ -90,6 +90,7 @@ public class gamebase {
         {
             System.out.println("Vous vous êtes hurter à un mur");
         }
+        laMap.display();
     }
 
     public static void placePlayer(int x, int y)
@@ -98,11 +99,10 @@ public class gamebase {
         e.setCord(x, y);
     }
 
-
 public static void spawnEnnemy(int nbrEnnemy){
 
     for (int i = 0; i < nbrEnnemy ; i++) {
-        Ennemy mechant = new Ennemy("nomDeMechant",100,1,false,false);
+        Ennemy mechant = new Ennemy("nomDeMechant",100,1,"e",null, false, false);
         ennemies.add(mechant);
     }
 }

@@ -1,12 +1,14 @@
 package Model.Character;
 
+import Model.Object.Weapon;
+
 public class Ennemy extends Personnage{
 
     private boolean isKnockout;
     private boolean type;
 
-    public Ennemy(String nom, float pointsDeVie, float force, boolean isKnockout, boolean type) {
-        super(nom, pointsDeVie, force, "e",null);
+    public Ennemy(String nom, float pointsDeVie, float force, String symbole, Weapon arme, boolean isKnockout, boolean type) {
+        super(nom, pointsDeVie, force, symbole, arme);
         this.isKnockout = isKnockout;
         this.type = type;
     }
