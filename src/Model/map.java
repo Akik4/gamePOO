@@ -18,8 +18,6 @@ public class map {
     {
         for (int y = this.sizeY - 1; y > -1 ; y--) {
             for (int x = this.sizeX - 1; x > -1 ; x--) {
-                System.out.println(this.sizeX);
-                System.out.println(this.sizeY);
                 if(y == 0 | y == this.sizeY -1)
                 {
                     test[y][x] = "#";

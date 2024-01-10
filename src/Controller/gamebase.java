@@ -19,14 +19,15 @@ public class gamebase {
     {
         laMap.generateMap();
 
-        laMap.spawn(12, 12, e.getSymbole());
-        e.setCord(12, 12);
+        placePlayer(12, 12);
         laMap.display();
         //displayMap();
     }
 
     public static void placePlayer(int x, int y)
     {
+        laMap.spawn(x, y, e.getSymbole());
+        e.setCord(x, y);
     }
 
 
