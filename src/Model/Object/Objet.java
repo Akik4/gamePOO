@@ -9,6 +9,8 @@ public class Objet implements Interact {
     private String name;
     private String description;
 
+    private int price;
+
     public Objet(float weight, String name, String description) {
         this.weight = weight;
         this.name = name;
@@ -25,6 +27,10 @@ public class Objet implements Interact {
 
     public String getName() {
         return name;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public void setName(String name) {
