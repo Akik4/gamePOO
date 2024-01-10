@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static Controller.gamebase.init;
+
+
 public class cli {
 
     public static void startMenu()
@@ -16,6 +19,7 @@ public class cli {
             switch (response){
                 case 1:
                     System.out.println("Vous jouez");
+                    init();
                     break;
                 case 2:
                     System.out.println("Quitter");
@@ -34,5 +38,21 @@ public class cli {
             System.out.println("Entrée invalide");
             startMenu();
         }
+    }
+
+    public static void displayMap()
+    {
+        System.out.println(
+                "       ######################\r\n" +
+                "       #....................#\r\n" +
+                "       #....................#\r\n" +
+                "       #....................#\r\n" +
+                "       #....................#\r\n" +
+                "       #....................#\r\n" +
+                "       #....................#\r\n" +
+                "       ######################\r\n" +
+                "    100HP | Items | x restant | Objets\r\n" +
+                "1 - attaquer"
+        );
     }
 }

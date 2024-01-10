@@ -1,14 +1,28 @@
 package Model.Character;
 
+import Model.Object.Objet;
+import Model.Object.Weapon;
+
 public class Personnage {
     private String nom; 
     private float pointsDeVie;
     private float force;
 
-    public Personnage(String nom, float pointsDeVie, float force) {
+    private String symbole;
+
+    private int cordX;
+    private int cordY;
+
+    private Weapon arme;
+
+
+
+    public Personnage(String nom, float pointsDeVie, float force, String symbole, Weapon arme) {
         this.nom = nom;
         this.pointsDeVie = pointsDeVie;
         this.force = force;
+        this.symbole = symbole;
+        this.arme = arme;
     }
 
     public String getNom() {
@@ -33,6 +47,44 @@ public class Personnage {
 
     public void setForce(float force) {
         this.force = force;
+    }
+
+    public Weapon getArme() {
+        return arme;
+    }
+
+    public void setArme(Weapon arme) {
+        this.arme = arme;
+    }
+
+    public String getSymbole() {
+        return symbole;
+    }
+
+    public void setSymbole(String symbole) {
+        this.symbole = symbole;
+    }
+
+    public int getCordX() {
+        return cordX;
+    }
+
+    public void setCordX(int cordX) {
+        this.cordX = cordX;
+    }
+
+    public int getCordY() {
+        return cordY;
+    }
+
+    public void setCordY(int cordY) {
+        this.cordY = cordY;
+    }
+
+    public void setCord(int cordX, int cordY)
+    {
+        setCordX(cordX);
+        setCordY(cordY);
     }
 
     public void attaquer()

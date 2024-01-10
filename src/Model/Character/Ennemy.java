@@ -6,7 +6,7 @@ public class Ennemy extends Personnage{
     private boolean type;
 
     public Ennemy(String nom, float pointsDeVie, float force, boolean isKnockout, boolean type) {
-        super(nom, pointsDeVie, force);
+        super(nom, pointsDeVie, force, "e",null);
         this.isKnockout = isKnockout;
         this.type = type;
     }
