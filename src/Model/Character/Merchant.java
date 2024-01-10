@@ -23,4 +23,21 @@ public class Merchant {
         }
         return itemChoice;
     }
+
+    public int buy(int coins, Objet item) {
+        /** This function verifies if the player has enough
+         * coins to buy an item, and returns the player's coin balance
+         * if purchase successful.
+         * @param coins Coins of the player
+         * @param item item the player is buying
+         * @return new player coin balance **/
+        int itemPrice = item.getPrice();
+        if (coins - itemPrice > 0) { // if enough coins
+            coins = coins - itemPrice;
+            System.out.println("Item succesfully bought!");
+        } else { // if not enough coins
+            System.out.println("Not enough coins :(");
+        }
+        return coins;
+    }
 }
