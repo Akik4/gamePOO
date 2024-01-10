@@ -3,9 +3,17 @@ package Model.Character;
 import Model.Object.Weapon;
 
 public class Player extends Personnage{
-
-    public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme) {
+    private int coins;
+    public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme, int coins) {
         super(nom, pointsDeVie, force, symbole, arme);
+        this.coins = coins;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
     public void attaquer()
