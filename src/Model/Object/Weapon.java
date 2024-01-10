@@ -1,6 +1,8 @@
 package Model.Object;
 
-public abstract class Weapon extends Objet{
+import Model.Object.Objet;
+
+public abstract class Weapon extends Objet {
 
     private float damage;
     private boolean type;
