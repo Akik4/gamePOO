@@ -140,7 +140,7 @@ public class gamebase {
             {
                 laMap.test[ennemie.getCordY()][ennemie.getCordX()] = ".";
                 count.add(i);
-                e.setCoins(e.getCoins() + 100);
+                e.setCoins(e.getCoins() + 11);
             }
             moveEnnemie(ennemie);
             i++;
@@ -237,7 +237,7 @@ public class gamebase {
         int luck = random.nextInt(6);
         int getDistance = (int) Math.sqrt(Math.pow(ennemy.getCordX() - e.getCordX(), 2) + Math.pow(ennemy.getCordY() - e.getCordY(), 2));
 
-        if(getDistance < 2){
+        if(getDistance < ennemy.getArme().getRange()){
             ennemy.attaquer(e);
             return;
         }
@@ -287,7 +287,10 @@ public class gamebase {
 public static void spawnEnnemy(int nbrEnnemy){
 
     for (int i = 0; i < nbrEnnemy ; i++) {
-        Ennemy mechant = new Ennemy("nomDeMechant",100,1,"e",null, false, false);
+
+        Ennemy mechant = new Ennemy("nomDeMechant",100,1,"e", null, false, false);
+    mechant.setArme(mechant.randomizedEnnemyWeapon());
+        System.out.println(mechant.getArme().getName());
         ennemies.add(mechant);
     }
 }
