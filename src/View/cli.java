@@ -1,6 +1,9 @@
 package View;
 
 
+import Controller.gamebase;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,15 +16,28 @@ public class cli {
     public static void startMenu()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1 - Jouer \r\n2 - Quitter");
+        System.out.println("1 - Jouer \r\n2 - Charger\r\n3 - Quitter");
         try {
             int response = scanner.nextInt();
             switch (response){
                 case 1:
                     System.out.println("Vous jouez");
-                    init();
+                    try {
+                        init();
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 2:
+                    try
+                    {
+                        gamebase.isSaved = true;
+                        init();
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case 3:
                     System.out.println("Quitter");
                     break;
                 default:
