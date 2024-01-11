@@ -3,8 +3,8 @@ package Model.Object.Armes;
 import Model.Object.Weapon;
 
 public class Dagger extends Weapon {
-    public Dagger(float weight, String name, String description, float damage, boolean type, int range) {
-        super(10, "Arondight", "Dague de Lance L'eau", 30, type, 1);
+    public Dagger() {
+        super(10, "Arondight", "Dague de Lance L'eau", 30, false, 1, 25);
     }
 
     @Override

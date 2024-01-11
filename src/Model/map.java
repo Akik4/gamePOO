@@ -1,11 +1,19 @@
 package Model;
 
+import static Controller.gamebase.isGameOver;
+
 public class map {
 
-
+    private boolean merchantSequenceActivated;
     int sizeX, sizeY;
     public String[][] test;
 
+    public boolean isMerchantSequenceActivated() {
+        return merchantSequenceActivated;
+    }
+    public void setMerchantSequenceActivated(boolean merchantSequenceActivated) {
+        this.merchantSequenceActivated = merchantSequenceActivated;
+    }
 
     public map(int sizeX, int sizeY)
     {
@@ -35,22 +43,22 @@ public class map {
 
     public void display()
     {
-        StringBuilder display = new StringBuilder();
+        if (!merchantSequenceActivated || !isGameOver) {
+            StringBuilder display = new StringBuilder();
 
-        for (String[] column : test)
-        {
-            display.append("\r\n");
-            for(String row : column)
-            {
-                display.append(row).append(" ");
+            for (String[] column : test) {
+                display.append("\r\n");
+                for (String row : column) {
+                    display.append(row).append(" ");
+                }
             }
+            System.out.println(display);
         }
 
-        System.out.println(display);
     }
 
     public void spawn(int x, int y, String visual)
     {
-        test[x][y] = visual;
+        test[y][x] = visual;
     }
 }

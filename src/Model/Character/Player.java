@@ -2,6 +2,11 @@ package Model.Character;
 
 import Model.Object.Weapon;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static Controller.gamebase.update;
+
 public class Player extends Personnage{
     private int coins;
     public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme) {
@@ -15,9 +20,15 @@ public class Player extends Personnage{
         this.coins = coins;
     }
 
-    public void attaquer()
+    public void attaquer(List<Ennemy> inRange)
     {
-        System.out.println("Joueur qui attaque");
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        if (!inRange.isEmpty()) {
+            for (Ennemy toAttack : inRange) {
+                toAttack.setPointsDeVie(toAttack.getPointsDeVie() - this.getForce() * this.getArme().getDamage());
+            }
+        }
     }
 
     public void defendre()

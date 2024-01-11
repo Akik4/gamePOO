@@ -2,6 +2,8 @@ package Model.Character;
 
 import Model.Object.Weapon;
 
+import java.util.Random;
+
 public class Ennemy extends Personnage{
 
     private boolean isKnockout;
@@ -29,9 +31,16 @@ public class Ennemy extends Personnage{
         this.type = type;
     }
 
-    public void attaquer()
+    public void attaquer(Player joueur)
     {
-        System.out.println("Ennemy qui attaque");
+        Random random = new Random();
+        int rdn = random.nextInt(10);
+        if(rdn >= 5)
+        {
+            joueur.setPointsDeVie(joueur.getPointsDeVie() - 100);
+            System.out.println("Attaque ennemie reçu -2 hp");
+        }
+        //System.out.println("Ennemy qui attaque");
     }
 
     public void defendre()
