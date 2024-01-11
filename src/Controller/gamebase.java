@@ -32,8 +32,8 @@ public class gamebase {
 
     public static void init() throws FileNotFoundException {
         if(!isSaved){
-            e = new Player("test", 100, 1, "p",defaultWeapon, 0);
             defaultWeapon = new Stick();
+            e = new Player("test", 200, 1, "p",defaultWeapon, 0);
         } else {
             Scanner save = Saver.readFile();
             Map<String, String> data = new HashMap<>();
@@ -118,12 +118,12 @@ public class gamebase {
                     case 6:
                         //sauvegarder
                         Writer saveFile = Saver.getSaver();
-                        saveFile.write("HP : " + e.getPointsDeVie() + "\r\n");
-                        saveFile.write("Coins : " + e.getCoins()+ "\r\n");
-                        saveFile.write("Force :" + e.getForce() + "\r\n");
-                        saveFile.write("arme_range: " + e.getArme().getRange() + "\r\n");
-                        saveFile.write("arme_damage :" +e.getArme().getDamage()+ "\r\n");
-                        saveFile.write("arme_name :" +e.getArme().getName() +"\r\n");
+                        saveFile.write("HP:" + e.getPointsDeVie() + "\r\n");
+                        saveFile.write("Coins:" + e.getCoins()+ "\r\n");
+                        saveFile.write("Force:" + e.getForce() + "\r\n");
+                        saveFile.write("range:" + e.getArme().getRange() + "\r\n");
+                        saveFile.write("damage:" +e.getArme().getDamage()+ "\r\n");
+                        saveFile.write("wname:" +e.getArme().getName() +"\r\n");
                         saveFile.close();
                     default:
                         System.out.print("\033[H\033[2J");
