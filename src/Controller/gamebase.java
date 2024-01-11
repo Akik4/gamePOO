@@ -112,8 +112,8 @@ public static void placeEnnemy()
     for (Ennemy mechant : ennemies) {
 
         Random random = new Random();
-        int xRandom = random.nextInt(20);
-        int yRandom = random.nextInt(20);
+        int xRandom = random.nextInt(2,20);
+        int yRandom = random.nextInt(2,20);
         laMap.spawn(xRandom,yRandom, mechant.getSymbole());
         mechant.setCord(xRandom,yRandom);
     }
