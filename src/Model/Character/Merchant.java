@@ -8,49 +8,53 @@ import java.lang.Math;
 import java.util.Random;
 
 public class Merchant {
-    private ArrayList<Objet> MerchantStock = new ArrayList<Objet>(); // Collection containing all purchasable items
+    private ArrayList<Objet> MerchantObjectStock = new ArrayList<Objet>(); // Collection containing all purchasable items
+    private ArrayList<Objet> MerchantWeaponStock = new ArrayList<Objet>(); // Collection containing all purchasable items
 
     public Merchant() {
-        MerchantStock.add(new HealingPotion());
-        MerchantStock.add(new HealingPotion());
-        MerchantStock.add(new StrengthPotion());
-        MerchantStock.add(new Bow());
-        MerchantStock.add(new Crossbow());
-        MerchantStock.add(new Dagger());
-        MerchantStock.add(new Spear());
-        MerchantStock.add(new Sword());
+        MerchantObjectStock.add(new HealingPotion());
+        MerchantObjectStock.add(new HealingPotion());
+        MerchantObjectStock.add(new StrengthPotion());
+
+        MerchantWeaponStock.add(new Bow());
+        MerchantWeaponStock.add(new Crossbow());
+        MerchantWeaponStock.add(new Dagger());
+        MerchantWeaponStock.add(new Spear());
+        MerchantWeaponStock.add(new Sword());
 
     }
-    public ArrayList<Objet> getMerchantStock() {
-        return MerchantStock;
+    public ArrayList<Objet> getMerchantObjectStock() {
+        return MerchantObjectStock;
     }
+    public ArrayList<Objet> getMerchantWeaponStock() {
+        return MerchantWeaponStock;
+    }
+
 
     public ArrayList<Objet> randomizedItemChoice() {
         /** This function randomly chooses 3 items from all purchasable items.
          * @param stock Collection containing all purchasable items.
          * @return Selected 3 items **/
         ArrayList<Objet> itemChoice = new ArrayList<Objet>();
-        for (int i = 0; i < 3; i++) {
-            Random random = new Random();
-            itemChoice.add(this.MerchantStock.get(random.nextInt(0,7)));
+        Random random = new Random();
+        itemChoice.add(this.MerchantObjectStock.get(random.nextInt(0,7))); // 1 object
+
+        for (int i = 0; i < 2; i++) {
+            itemChoice.add(this.MerchantWeaponStock.get(random.nextInt(0,7))); // 2 weapons
         }
         return itemChoice;
     }
 
-    public static int buy(int coins, Objet item) {
+    public static boolean buy(int coins, Objet item) {
         /** This function verifies if the player has enough
-         * coins to buy an item, and returns the player's coin balance
-         * if purchase successful.
+         * coins to buy an item.
          * @param coins Coins of the player
-         * @param item item the player is buying
-         * @return new player coin balance **/
+         * @param item item the player is buying**/
         int itemPrice = item.getPrice();
         if (coins - itemPrice > 0) { // if enough coins
-            coins = coins - itemPrice;
-            System.out.println("Item successfully bought!");
+            return true;
         } else { // if not enough coins
-            System.out.println("Not enough coins :(");
+            return false;
         }
-        return coins;
     }
 }

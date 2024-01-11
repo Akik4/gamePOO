@@ -140,7 +140,7 @@ public class gamebase {
             {
                 laMap.test[ennemie.getCordY()][ennemie.getCordX()] = ".";
                 count.add(i);
-                e.setCoins(e.getCoins() + 8);
+                e.setCoins(e.getCoins() + 100);
             }
             moveEnnemie(ennemie);
             i++;
@@ -156,15 +156,14 @@ public class gamebase {
         {
             System.out.println("Vous avez gagné ce round");
             laMap.setMerchantSequenceActivated(true);
-            merchantSequence();
+            Merchant marchand = new Merchant();
+            ArrayList<Objet> selectedObjects = marchand.randomizedItemChoice();
+            merchantSequence(marchand, selectedObjects);
         }
     }
 
-    public static void merchantSequence() {
+    public static void merchantSequence(Merchant marchand, ArrayList<Objet> selectedObjects) {
         System.out.println("Bienvenue dans la boutique !");
-        Merchant marchand = new Merchant();
-        ArrayList<Objet> selectedObjects = marchand.randomizedItemChoice();
-
         StringBuilder response = new StringBuilder();
         int i = 1;
         for (Objet current : selectedObjects) {
@@ -172,6 +171,7 @@ public class gamebase {
             i++;
         }
         System.out.println(response + "4 - Quitter la boutique \r\n");
+
         Scanner scanner = new Scanner(System.in);
         int playerResponse = scanner.nextInt();
         Objet playerItemChoice = null;
@@ -191,16 +191,28 @@ public class gamebase {
                 placeEnnemy();
                 break;
             default:
-                merchantSequence();
+                merchantSequence(marchand, selectedObjects);
                 break;
             }
-            System.out.println("A bientôt !");
-            //laMap.setMerchantSequenceActivated(false);
             if(playerItemChoice != null)
             {
-                Merchant.buy(playerItemChoice.getPrice(), playerItemChoice);
+                int playerItemChoicePrice = playerItemChoice.getPrice(); // Price of the ITEM the player chose
+                int playerCoinBalance = e.getCoins();                    // Player coins
+                if (Merchant.buy(playerCoinBalance, playerItemChoice)) { // If enough coins
+                    System.out.println("Item acheté !");
+                    e.setCoins(playerCoinBalance - playerItemChoicePrice);// Updated player coins
+                    if (playerItemChoice instanceof Weapon) {
+                        e.setArme((Weapon) playerItemChoice);
+                    } else {
+                        e.setObjectInventory(playerItemChoice);
+                    }
+                } else {
+                    System.out.println("Pas assez de coins :(");
+                    merchantSequence(marchand, selectedObjects);
+                }
             }
-
+        System.out.println("A bientôt !");
+        laMap.setMerchantSequenceActivated(false);
     }
 
     public static void movePlayer(int oldX, int oldY, int x, int y)
@@ -291,9 +303,5 @@ public static void placeEnnemy()
         laMap.spawn(mechant.getCordX(), mechant.getCordY(), mechant.getSymbole());
     }
 }
-
-
-
-
 
 }
