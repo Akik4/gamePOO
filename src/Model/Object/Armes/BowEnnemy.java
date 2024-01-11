@@ -2,13 +2,14 @@ package Model.Object.Armes;
 
 import Model.Object.Weapon;
 
-public class Stick extends Weapon {
-    public Stick() {
-        super(10, "Batôn de glace", "", 10, false, 2, 0);
+public class BowEnnemy extends Weapon {
+    public BowEnnemy() {
+        super(10, "Guerrier Archer", "Bow Ennemy ", 5, false, 5, 65);
     }
 
     @Override
     public void recharger() {
+
     }
 
     @Override

@@ -1,10 +1,17 @@
 package Model.Character;
 
+import Model.Object.Armes.Bow;
+import Model.Object.Armes.BowEnnemy;
+import Model.Object.Armes.Sword;
+import Model.Object.Armes.SwordEnnemy;
+import Model.Object.Objet;
 import Model.Object.Weapon;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ennemy extends Personnage{
+
 
     private boolean isKnockout;
     private boolean type;
@@ -13,6 +20,26 @@ public class Ennemy extends Personnage{
         super(nom, pointsDeVie, force, symbole, arme);
         this.isKnockout = isKnockout;
         this.type = type;
+    }
+
+    public ArrayList EnnemiesWeapon(){
+        ArrayList<Weapon> EnnemyWeapon = new ArrayList<Weapon>(); // Collection containing all ennemy's weapons
+        EnnemyWeapon.add(new BowEnnemy());
+        EnnemyWeapon.add(new SwordEnnemy());
+        return EnnemyWeapon;
+    }
+
+    public Weapon randomizedEnnemyWeapon() {
+        /** This function randomly chooses 1 weapon from all avaible weapons.
+         * @param stock Collection containing all purchasable items.
+         * @return Selected 1 weapon **/
+        Weapon weaponChoice = null;
+        ArrayList<Weapon> EnnemyWeapon = EnnemiesWeapon();
+        for (int i = 0; i < 1; i++) {
+            Random random = new Random();
+            weaponChoice = (EnnemyWeapon.get(random.nextInt(0,2)));
+        }
+        return weaponChoice;
     }
 
     public boolean isKnockout() {
@@ -37,8 +64,8 @@ public class Ennemy extends Personnage{
         int rdn = random.nextInt(10);
         if(rdn >= 5)
         {
-            joueur.setPointsDeVie(joueur.getPointsDeVie() - 100);
-            System.out.println("Attaque ennemie reçu -2 hp");
+            joueur.setPointsDeVie(joueur.getPointsDeVie() - this.getForce() * this.getArme().getDamage());
+            System.out.println("Attaque ennemie reçu - " + (this.getForce() * this.getArme().getDamage()) + "hp");
         }
         //System.out.println("Ennemy qui attaque");
     }
