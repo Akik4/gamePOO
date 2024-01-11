@@ -41,6 +41,7 @@ public class gamebase {
 
     public static void getNextInput()
     {
+        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer");
         List<Ennemy> inRange = new ArrayList<Ennemy>();
         Scanner scanner = new Scanner(System.in);
         for(Ennemy ennemie : ennemies)
@@ -50,6 +51,7 @@ public class gamebase {
             {
                 inRange.add(ennemie);
                 System.out.println("PV Restant : " + ennemie.getPointsDeVie());
+                System.out.println(ennemies.size());
             }
         }
         if(isGameOver)
@@ -58,10 +60,14 @@ public class gamebase {
             return;
         }
         //System.out.println(isGameOver);
+        if(ennemies.size() <= 0)
+        {
+            spawnEnnemy(3);
+            placeEnnemy();
+        }
         if (!laMap.isMerchantSequenceActivated()) {
             System.out.println(e.getPointsDeVie() + "HP | Arme " + e.getArme().getName() + " | " + e.getCoins() + " Coins");
             try {
-                System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche");
                 int response = scanner.nextInt();
                 switch (response) {
                     case 1:
@@ -124,7 +130,7 @@ public class gamebase {
     }
     public static void update()
     {
-        List<Integer> count = new ArrayList<>();
+        List<Ennemy> count = new ArrayList<>();
 
         if(e.getPointsDeVie() <= 0)
         {
@@ -133,22 +139,20 @@ public class gamebase {
             return;
         }
 
-        Integer i = 0;
         for(Ennemy ennemie : ennemies)
         {
             if(ennemie.getPointsDeVie() <= 0)
             {
                 laMap.test[ennemie.getCordY()][ennemie.getCordX()] = ".";
-                count.add(i);
+                count.add(ennemie);
                 e.setCoins(e.getCoins() + 11);
             }
             moveEnnemie(ennemie);
-            i++;
         }
 
-        for(int current : count)
+        for(Ennemy current : count)
         {
-            ennemies.remove(0);
+            ennemies.remove(current);
         }
         count.clear();
 
@@ -187,8 +191,6 @@ public class gamebase {
                 break;
             case 4:
                 laMap.setMerchantSequenceActivated(false);
-                spawnEnnemy(3);
-                placeEnnemy();
                 break;
             default:
                 merchantSequence(marchand, selectedObjects);
@@ -289,7 +291,7 @@ public static void spawnEnnemy(int nbrEnnemy){
     for (int i = 0; i < nbrEnnemy ; i++) {
 
         Ennemy mechant = new Ennemy("nomDeMechant",100,1,"e", null, false, false);
-    mechant.setArme(mechant.randomizedEnnemyWeapon());
+        mechant.setArme(mechant.randomizedEnnemyWeapon());
         System.out.println(mechant.getArme().getName());
         ennemies.add(mechant);
     }

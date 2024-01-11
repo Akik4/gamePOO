@@ -37,10 +37,10 @@ public class Merchant {
          * @return Selected 3 items **/
         ArrayList<Objet> itemChoice = new ArrayList<Objet>();
         Random random = new Random();
-        itemChoice.add(this.MerchantObjectStock.get(random.nextInt(0,7))); // 1 object
+        itemChoice.add(this.MerchantObjectStock.get(random.nextInt(0,2))); // 1 object
 
         for (int i = 0; i < 2; i++) {
-            itemChoice.add(this.MerchantWeaponStock.get(random.nextInt(0,7))); // 2 weapons
+            itemChoice.add(this.MerchantWeaponStock.get(random.nextInt(0,4))); // 2 weapons
         }
         return itemChoice;
     }
