@@ -1,6 +1,6 @@
-HP:50.0
-Coins:0
+HP:165.0
+Coins:8
 Force:1.0
 range:2
-damage:8.0
-wname:Batôn de glace
+damage:30.0
+wname:Arondight

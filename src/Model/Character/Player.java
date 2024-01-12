@@ -1,14 +1,16 @@
 package Model.Character;
 
+import Model.Event.Interact;
 import Model.Object.Objet;
 import Model.Object.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static Controller.gamebase.e;
 import static Controller.gamebase.update;
 
-public class Player extends Personnage{
+public class Player extends Personnage implements Interact {
     private int coins;
     private ArrayList<Objet> objectInventory = new ArrayList<Objet>();
     public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme, int coins) {
@@ -24,6 +26,7 @@ public class Player extends Personnage{
 
     public void attaquer(List<Ennemy> inRange)
     {
+        super.attaquer();
         System.out.print("\033[H\033[2J");
         System.out.flush();
         if (!inRange.isEmpty()) {
@@ -42,5 +45,11 @@ public class Player extends Personnage{
     }
     public void setObjectInventory(Objet newObject) {
         this.objectInventory.add(newObject);
+    }
+
+    @Override
+    public void interagir() {
+        System.out.println("Vous utilisez une potion");
+        e.setPointsDeVie(200);
     }
 }

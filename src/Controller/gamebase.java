@@ -61,7 +61,7 @@ public class gamebase {
 
     public static void getNextInput()
     {
-        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer\r\n6 - Sauvegarder");
+        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer\r\n6 - Utiliser potion(interragir)\r\n7 - Sauvegarder");
         List<Ennemy> inRange = new ArrayList<Ennemy>();
         Scanner scanner = new Scanner(System.in);
         for(Ennemy ennemie : ennemies)
@@ -116,6 +116,8 @@ public class gamebase {
                         showMap();
                         break;
                     case 6:
+                        e.interagir();
+                    case 7:
                         //sauvegarder
                         Writer saveFile = Saver.getSaver();
                         saveFile.write("HP:" + e.getPointsDeVie() + "\r\n");
