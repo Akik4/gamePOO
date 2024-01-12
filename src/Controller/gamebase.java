@@ -6,10 +6,14 @@ import Model.Character.Merchant;
 import Model.Character.Personnage;
 import Model.Character.Player;
 import Model.Object.Armes.Stick;
+import Model.Object.Armes.Template;
 import Model.Object.Objet;
 import Model.Object.Weapon;
 import Model.map;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 import static View.cli.displayMap;
@@ -20,13 +24,29 @@ public class gamebase {
     public static ArrayList<Ennemy> ennemies = new ArrayList<Ennemy>();
 
     static map laMap = new map(22, 22);
-    private final static Weapon defaultWeapon = new Stick();
-    public static Player e = new Player("test", 100, 1, "p",defaultWeapon);
+    private static Weapon defaultWeapon;
+    public static Player e;
 
     public static boolean isGameOver;
+    public static boolean isSaved;
 
-    public static void init()
-    {
+    public static void init() throws FileNotFoundException {
+        if(!isSaved){
+            defaultWeapon = new Stick();
+            e = new Player("test", 200, 1, "p",defaultWeapon, 0);
+        } else {
+            Scanner save = Saver.readFile();
+            Map<String, String> data = new HashMap<>();
+            while (save.hasNextLine())
+            {
+                String test = save.nextLine();
+                String[] split = test.split(":");
+                data.put(split[0], split[1]);
+                System.out.println(split[0] + " : "+split[1]);
+            }
+            defaultWeapon = new Template(10, data.get("wname"), "", Float.parseFloat(data.get("damage")), false, Integer.parseInt(data.get("range")), 0);
+            e = new Player("Bernard", Float.parseFloat(data.get("HP")), Float.parseFloat(data.get("Force")), "p", defaultWeapon, Integer.parseInt(data.get("Coins")));
+        }
         isGameOver = false;
         laMap.generateMap();
 
@@ -41,7 +61,7 @@ public class gamebase {
 
     public static void getNextInput()
     {
-        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer");
+        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer\r\n6 - Sauvegarder");
         List<Ennemy> inRange = new ArrayList<Ennemy>();
         Scanner scanner = new Scanner(System.in);
         for(Ennemy ennemie : ennemies)
@@ -95,6 +115,16 @@ public class gamebase {
                         update();
                         showMap();
                         break;
+                    case 6:
+                        //sauvegarder
+                        Writer saveFile = Saver.getSaver();
+                        saveFile.write("HP:" + e.getPointsDeVie() + "\r\n");
+                        saveFile.write("Coins:" + e.getCoins()+ "\r\n");
+                        saveFile.write("Force:" + e.getForce() + "\r\n");
+                        saveFile.write("range:" + e.getArme().getRange() + "\r\n");
+                        saveFile.write("damage:" +e.getArme().getDamage()+ "\r\n");
+                        saveFile.write("wname:" +e.getArme().getName() +"\r\n");
+                        saveFile.close();
                     default:
                         System.out.print("\033[H\033[2J");
                         System.out.flush();
@@ -107,6 +137,8 @@ public class gamebase {
                 System.out.flush();
                 System.out.println("Entrée invalide");
                 getNextInput();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         }
     }

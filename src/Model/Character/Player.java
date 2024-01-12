@@ -11,7 +11,7 @@ import static Controller.gamebase.update;
 public class Player extends Personnage{
     private int coins;
     private ArrayList<Objet> objectInventory = new ArrayList<Objet>();
-    public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme) {
+    public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme, int coins) {
         super(nom, pointsDeVie, force, symbole, arme);
         this.coins = coins;
     }

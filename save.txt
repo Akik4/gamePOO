@@ -1,0 +1,6 @@
+HP:50.0
+Coins:0
+Force:1.0
+range:2
+damage:8.0
+wname:Batôn de glace
