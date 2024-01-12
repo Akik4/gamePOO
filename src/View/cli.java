@@ -15,6 +15,8 @@ public class cli {
 
     public static void startMenu()
     {
+        /** This function displays the start menu
+         * and manages player input accordingly. **/
         Scanner scanner = new Scanner(System.in);
         System.out.println("1 - Jouer \r\n2 - Charger\r\n3 - Quitter");
         try {
