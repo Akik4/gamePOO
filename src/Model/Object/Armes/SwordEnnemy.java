@@ -4,7 +4,8 @@ import Model.Object.Weapon;
 
 public class SwordEnnemy extends Weapon {
     public SwordEnnemy() {
-        super(10, "Guerrier Combatant", "Sword Ennemy", 10, false, 2, 50);
+
+        super(10, "Guerrier Combatant", "Sword Ennemy", 8, false, 2, 50);
 
     }
 

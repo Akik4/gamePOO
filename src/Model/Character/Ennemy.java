@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Ennemy extends Personnage{
+
+
     private boolean isKnockout;
     private boolean type;
 
@@ -57,7 +59,7 @@ public class Ennemy extends Personnage{
         EnnemyWeapon.add(new BowEnnemy());
         EnnemyWeapon.add(new SwordEnnemy());
         return EnnemyWeapon;
-    }
+
     public Weapon randomizedEnnemyWeapon() {
         /** This function randomly chooses 1 weapon
          * from all avaible weapons.

@@ -10,9 +10,9 @@ import static Controller.gamebase.update;
 
 public class Player extends Personnage{
     private int coins;
-    private ArrayList<Objet> objectInventory = new ArrayList<Objet>(); // PLAYER INVENTORY
 
-    public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme) {
+    private ArrayList<Objet> objectInventory = new ArrayList<Objet>();
+    public Player(String nom, float pointsDeVie, float force, String symbole, Weapon arme, int coins) {
         super(nom, pointsDeVie, force, symbole, arme);
         this.coins = coins;
     }
@@ -42,8 +42,16 @@ public class Player extends Personnage{
             }
         }
     }
+
     public void defendre()
     {
         System.out.println("Joueur qui defend");
+    }
+
+    public ArrayList<Objet> getObjectInventory() {
+        return objectInventory;
+    }
+    public void setObjectInventory(Objet newObject) {
+        this.objectInventory.add(newObject);
     }
 }

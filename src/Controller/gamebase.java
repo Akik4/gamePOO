@@ -5,10 +5,16 @@ import Model.Character.Merchant;
 import Model.Character.Personnage;
 import Model.Character.Player;
 import Model.Object.Armes.Stick;
+
+import Model.Object.Armes.Template;
 import Model.Object.Objet;
 import Model.Object.Weapon;
 import Model.map;
 
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 import static View.cli.displayMap;
@@ -19,13 +25,30 @@ public class gamebase {
     public static ArrayList<Ennemy> ennemies = new ArrayList<Ennemy>();
 
     static map laMap = new map(22, 22);
-    private final static Weapon defaultWeapon = new Stick();
-    public static Player e = new Player("test", 100, 1, "p",defaultWeapon);
+
+    private static Weapon defaultWeapon;
+    public static Player e;
 
     public static boolean isGameOver;
+    public static boolean isSaved;
 
-    public static void init()
-    {
+    public static void init() throws FileNotFoundException {
+        if(!isSaved){
+            defaultWeapon = new Stick();
+            e = new Player("test", 200, 1, "p",defaultWeapon, 0);
+        } else {
+            Scanner save = Saver.readFile();
+            Map<String, String> data = new HashMap<>();
+            while (save.hasNextLine())
+            {
+                String test = save.nextLine();
+                String[] split = test.split(":");
+                data.put(split[0], split[1]);
+                System.out.println(split[0] + " : "+split[1]);
+            }
+            defaultWeapon = new Template(10, data.get("wname"), "", Float.parseFloat(data.get("damage")), false, Integer.parseInt(data.get("range")), 0);
+            e = new Player("Bernard", Float.parseFloat(data.get("HP")), Float.parseFloat(data.get("Force")), "p", defaultWeapon, Integer.parseInt(data.get("Coins")));
+        }
         isGameOver = false;
         laMap.generateMap();
 
@@ -130,9 +153,21 @@ public class gamebase {
 
         );
     }
+
+    public static void gameOver()
+    {
+        System.out.println(
+                "#####################################\r\n" +
+                        "#                                   #\r\n"+
+                        "#              Game Over            #\r\n"+
+                        "#                                   #\r\n"+
+                        "#####################################"
+
+        );
+    }
     public static void update()
     {
-        /** This function checks if player or enemy
+       /** This function checks if player or enemy
          * is defeated and launches the merchant menu screen
          * if the player won. **/
         List<Ennemy> count = new ArrayList<>();
@@ -155,11 +190,13 @@ public class gamebase {
             moveEnnemie(ennemie);
         }
 
+
         for(Ennemy current : count)
         {
             ennemies.remove(current);
         }
         count.clear();
+
 
         if(ennemies.isEmpty())
         {
@@ -168,6 +205,7 @@ public class gamebase {
             Merchant marchand = new Merchant();
             ArrayList<Objet> selectedObjects = marchand.randomizedItemChoice();
             merchantSequence(marchand, selectedObjects);
+
         }
     }
 
@@ -281,6 +319,7 @@ public class gamebase {
             } else if (ennemy.getCordY() > e.getCordY()){
                 if(laMap.test[ennemy.getCordY() - 1][e.getCordX()] == ".") {
                     laMap.test[ennemy.getCordY()][ennemy.getCordX()] = ".";
+
 
                     laMap.test[ennemy.getCordY() - 1][ennemy.getCordX()] = ennemy.getSymbole();
                     ennemy.setCord(ennemy.getCordX(), ennemy.getCordY() - 1);
