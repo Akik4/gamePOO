@@ -341,14 +341,20 @@ public class gamebase {
 
     public static void placePlayer(int x, int y)
     {
+        /** This function adds the player in the map
+         * and modifies its x y coordinates. 
+         @param x coordinate X
+         @param y coordinate Y **/
         laMap.spawn(x, y, e.getSymbole());
         e.setCord(x, y);
     }
 
 public static void spawnEnnemy(int nbrEnnemy){
-
+    /** This function creates new Enemies, sets their weapon
+     * and health points for the current round and adds it
+     * to the list of enemies. 
+     @param nbrEnnemy number of desired enemies for this round **/
     for (int i = 0; i < nbrEnnemy ; i++) {
-
         Ennemy mechant = new Ennemy("nomDeMechant",100,1,"e", null, false, false);
         mechant.setArme(mechant.randomizedEnnemyWeapon());
         if(mechant.getArme().getRange() > 4)
@@ -362,6 +368,8 @@ public static void spawnEnnemy(int nbrEnnemy){
 
 public static void placeEnnemy()
 {
+    /** This function places all the enemies for
+     * the current round at random coordinates on the map. **/
     for (Ennemy mechant : ennemies) {
 
         Random random = new Random();
