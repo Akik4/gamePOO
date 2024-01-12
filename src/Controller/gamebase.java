@@ -351,6 +351,10 @@ public static void spawnEnnemy(int nbrEnnemy){
 
         Ennemy mechant = new Ennemy("nomDeMechant",100,1,"e", null, false, false);
         mechant.setArme(mechant.randomizedEnnemyWeapon());
+        if(mechant.getArme().getRange() > 4)
+        {
+            mechant.setPointsDeVie(30);
+        }
         System.out.println(mechant.getArme().getName());
         ennemies.add(mechant);
     }
