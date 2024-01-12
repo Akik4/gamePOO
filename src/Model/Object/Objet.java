@@ -8,13 +8,13 @@ public class Objet implements Interact {
     private float weight;
     private String name;
     private String description;
-
     private int price;
 
-    public Objet(float weight, String name, String description) {
+    public Objet(float weight, String name, String description, int price) {
         this.weight = weight;
         this.name = name;
         this.description = description;
+        this.price = price;
     }
 
     public float getWeight() {
