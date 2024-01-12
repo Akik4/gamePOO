@@ -9,11 +9,9 @@ public class Bow extends Weapon {
 
     @Override
     public void recharger() {
-
     }
 
     @Override
     public void attackWeapon() {
-
     }
 }

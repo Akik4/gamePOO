@@ -17,6 +17,8 @@ public class map {
 
     public map(int sizeX, int sizeY)
     {
+        /** This function generates a map the size of the
+         * instanciated object's sizeY and sizeY attributes. **/
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         test = new String[sizeX][sizeY];
@@ -24,6 +26,10 @@ public class map {
 
     public void generateMap()
     {
+        /** This function modifies the collection
+         * representing the map by replacing the item at a given
+         * [x][y] index with "#" for walls and "." for
+         * available positions. **/
         for (int y = this.sizeY - 1; y > -1 ; y--) {
             for (int x = this.sizeX - 1; x > -1 ; x--) {
                 if(y == 0 | y == this.sizeY -1)
@@ -43,6 +49,7 @@ public class map {
 
     public void display()
     {
+        /** This function displays the map in the console. **/
         if (!merchantSequenceActivated || !isGameOver) {
             StringBuilder display = new StringBuilder();
 
@@ -58,7 +65,11 @@ public class map {
     }
 
     public void spawn(int x, int y, String visual)
-    {
+    { /** This function places the ennemy's symbol on
+     the map.
+     @param x columns
+     @param y rows
+     @param visual symbol **/
         test[y][x] = visual;
     }
 }

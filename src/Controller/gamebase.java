@@ -1,15 +1,16 @@
 package Controller;
 
-
 import Model.Character.Ennemy;
 import Model.Character.Merchant;
 import Model.Character.Personnage;
 import Model.Character.Player;
 import Model.Object.Armes.Stick;
+
 import Model.Object.Armes.Template;
 import Model.Object.Objet;
 import Model.Object.Weapon;
 import Model.map;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class gamebase {
     public static ArrayList<Ennemy> ennemies = new ArrayList<Ennemy>();
 
     static map laMap = new map(22, 22);
+
     private static Weapon defaultWeapon;
     public static Player e;
 
@@ -56,12 +58,14 @@ public class gamebase {
         placeEnnemy();
 
         showMap();
-
     }
 
     public static void getNextInput()
     {
-        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer\r\n6 - Sauvegarder");
+        /** This function takes input from the player,
+         * checks all nearby enemies and game over status,
+         * and updates the map.**/
+        System.out.println("1 - Droite\r\n2 - Haut\r\n3 - Bas\r\n4 - Gauche \r\n5 - Attaquer");
         List<Ennemy> inRange = new ArrayList<Ennemy>();
         Scanner scanner = new Scanner(System.in);
         for(Ennemy ennemie : ennemies)
@@ -115,16 +119,6 @@ public class gamebase {
                         update();
                         showMap();
                         break;
-                    case 6:
-                        //sauvegarder
-                        Writer saveFile = Saver.getSaver();
-                        saveFile.write("HP:" + e.getPointsDeVie() + "\r\n");
-                        saveFile.write("Coins:" + e.getCoins()+ "\r\n");
-                        saveFile.write("Force:" + e.getForce() + "\r\n");
-                        saveFile.write("range:" + e.getArme().getRange() + "\r\n");
-                        saveFile.write("damage:" +e.getArme().getDamage()+ "\r\n");
-                        saveFile.write("wname:" +e.getArme().getName() +"\r\n");
-                        saveFile.close();
                     default:
                         System.out.print("\033[H\033[2J");
                         System.out.flush();
@@ -137,8 +131,6 @@ public class gamebase {
                 System.out.flush();
                 System.out.println("Entrée invalide");
                 getNextInput();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
         }
     }
@@ -147,6 +139,19 @@ public class gamebase {
     {
         laMap.display();
         getNextInput();
+    }
+
+    public static void gameOver()
+    {
+        /** This function displays the game over screen. **/
+        System.out.println(
+                "#####################################\r\n" +
+                        "#                                   #\r\n"+
+                        "#              Game Over            #\r\n"+
+                        "#                                   #\r\n"+
+                        "#####################################"
+
+        );
     }
 
     public static void gameOver()
@@ -162,6 +167,9 @@ public class gamebase {
     }
     public static void update()
     {
+       /** This function checks if player or enemy
+         * is defeated and launches the merchant menu screen
+         * if the player won. **/
         List<Ennemy> count = new ArrayList<>();
 
         if(e.getPointsDeVie() <= 0)
@@ -182,11 +190,13 @@ public class gamebase {
             moveEnnemie(ennemie);
         }
 
+
         for(Ennemy current : count)
         {
             ennemies.remove(current);
         }
         count.clear();
+
 
         if(ennemies.isEmpty())
         {
@@ -195,10 +205,16 @@ public class gamebase {
             Merchant marchand = new Merchant();
             ArrayList<Objet> selectedObjects = marchand.randomizedItemChoice();
             merchantSequence(marchand, selectedObjects);
+
         }
     }
 
     public static void merchantSequence(Merchant marchand, ArrayList<Objet> selectedObjects) {
+        /** This function manages the merchant sequence
+         * and checks if the player has enough coins when purchasing
+         * an item.
+         * @param marchand Merchant object
+         * @param selectedObjects list of previously randomized object choice **/
         System.out.println("Bienvenue dans la boutique !");
         StringBuilder response = new StringBuilder();
         int i = 1;
@@ -251,6 +267,12 @@ public class gamebase {
 
     public static void movePlayer(int oldX, int oldY, int x, int y)
     {
+        /** This function updates the player's symbol index
+         * in the map array if the position is available.
+         * @param oldX previous player X position
+         * @param oldY previous player Y position
+         * @param x new player X position
+         * @param y new player Y position **/
         System.out.print("\033[H\033[2J");
         System.out.flush();
         if(laMap.test[y][x] == ".")
@@ -267,6 +289,7 @@ public class gamebase {
 
     public static void moveEnnemie(Ennemy ennemy)
     {
+        /** This function manages enemy movement. **/
         Random random = new Random();
         int luck = random.nextInt(6);
         int getDistance = (int) Math.sqrt(Math.pow(ennemy.getCordX() - e.getCordX(), 2) + Math.pow(ennemy.getCordY() - e.getCordY(), 2));
@@ -296,6 +319,7 @@ public class gamebase {
             } else if (ennemy.getCordY() > e.getCordY()){
                 if(laMap.test[ennemy.getCordY() - 1][e.getCordX()] == ".") {
                     laMap.test[ennemy.getCordY()][ennemy.getCordX()] = ".";
+
 
                     laMap.test[ennemy.getCordY() - 1][ennemy.getCordX()] = ennemy.getSymbole();
                     ennemy.setCord(ennemy.getCordX(), ennemy.getCordY() - 1);

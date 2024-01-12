@@ -12,9 +12,14 @@ public class Merchant {
     private ArrayList<Objet> MerchantWeaponStock = new ArrayList<Objet>(); // Collection containing all purchasable items
 
     public Merchant() {
+
+        // OBJECTS LIST
         MerchantObjectStock.add(new HealingPotion());
         MerchantObjectStock.add(new HealingPotion());
         MerchantObjectStock.add(new StrengthPotion());
+
+
+        // WEAPONS LIST
 
         MerchantWeaponStock.add(new Bow());
         MerchantWeaponStock.add(new Crossbow());
@@ -29,7 +34,6 @@ public class Merchant {
     public ArrayList<Objet> getMerchantWeaponStock() {
         return MerchantWeaponStock;
     }
-
 
     public ArrayList<Objet> randomizedItemChoice() {
         /** This function randomly chooses 3 items from all purchasable items.
@@ -49,7 +53,9 @@ public class Merchant {
         /** This function verifies if the player has enough
          * coins to buy an item.
          * @param coins Coins of the player
-         * @param item item the player is buying**/
+         * @param item item the player is buying
+         * @return boolean -> true if player has enough coins **/
+
         int itemPrice = item.getPrice();
         if (coins - itemPrice > 0) { // if enough coins
             return true;

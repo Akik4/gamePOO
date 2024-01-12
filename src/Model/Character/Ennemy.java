@@ -21,41 +21,11 @@ public class Ennemy extends Personnage{
         this.isKnockout = isKnockout;
         this.type = type;
     }
-
-    public ArrayList EnnemiesWeapon(){
-        ArrayList<Weapon> EnnemyWeapon = new ArrayList<Weapon>(); // Collection containing all ennemy's weapons
-        EnnemyWeapon.add(new BowEnnemy());
-        EnnemyWeapon.add(new SwordEnnemy());
-        return EnnemyWeapon;
-    }
-
-    public Weapon randomizedEnnemyWeapon() {
-        /** This function randomly chooses 1 weapon from all avaible weapons.
-         * @param stock Collection containing all purchasable items.
-         * @return Selected 1 weapon **/
-        Weapon weaponChoice = null;
-        ArrayList<Weapon> EnnemyWeapon = EnnemiesWeapon();
-        for (int i = 0; i < 1; i++) {
-            Random random = new Random();
-            weaponChoice = (EnnemyWeapon.get(random.nextInt(0,2)));
-        }
-        return weaponChoice;
-    }
-
     public boolean isKnockout() {
         return isKnockout;
     }
-
     public void setKnockout(boolean knockout) {
         isKnockout = knockout;
-    }
-
-    public boolean isType() {
-        return type;
-    }
-
-    public void setType(boolean type) {
-        this.type = type;
     }
 
     public void attaquer(Player joueur)
@@ -69,9 +39,37 @@ public class Ennemy extends Personnage{
         }
         //System.out.println("Ennemy qui attaque");
     }
-
     public void defendre()
     {
         System.out.println("Ennemy qui defend");
+    }
+
+    public boolean isType() {
+        return type;
+    }
+    public void setType(boolean type) {
+        this.type = type;
+    }
+
+    public ArrayList EnnemiesWeapon(){
+        /** This function creates a collection
+         * of a bow and sword Object for enemies.
+         * @return EnnemyWeapon list of enemy Bow and Sword Objects **/
+        ArrayList<Weapon> EnnemyWeapon = new ArrayList<Weapon>();
+        EnnemyWeapon.add(new BowEnnemy());
+        EnnemyWeapon.add(new SwordEnnemy());
+        return EnnemyWeapon;
+
+    public Weapon randomizedEnnemyWeapon() {
+        /** This function randomly chooses 1 weapon
+         * from all avaible weapons.
+         * @return Selected 1 weapon **/
+        Weapon weaponChoice = null;
+        ArrayList<Weapon> EnnemyWeapon = EnnemiesWeapon();
+        for (int i = 0; i < 1; i++) {
+            Random random = new Random();
+            weaponChoice = (EnnemyWeapon.get(random.nextInt(0,2)));
+        }
+        return weaponChoice;
     }
 }

@@ -15,8 +15,6 @@ public class Personnage {
 
     private Weapon arme;
 
-
-
     public Personnage(String nom, float pointsDeVie, float force, String symbole, Weapon arme) {
         this.nom = nom;
         this.pointsDeVie = pointsDeVie;
