@@ -33,6 +33,8 @@ public class gamebase {
     public static boolean isSaved;
 
     public static void init() throws FileNotFoundException {
+        /** This function takes the game back according to the save file,
+         * and launches the game functions. **/
         if(!isSaved){
             defaultWeapon = new Stick();
             e = new Player("test", 200, 1, "p",defaultWeapon, 0);
