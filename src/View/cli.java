@@ -60,6 +60,8 @@ public class cli {
 
     public static void displayMap()
     {
+        /** This function displays an empty map and
+         * fixed game information such as HP, items... **/
         System.out.println(
                 "       ######################\r\n" +
                 "       #....................#\r\n" +
